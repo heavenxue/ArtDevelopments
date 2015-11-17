@@ -2,6 +2,7 @@ package com.lixue.aibei.artdevelopments.chapter_1;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.ActionBarActivity;
@@ -26,12 +27,12 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent("com.lixue.chapter_1.SecondActivity");
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, SecondActivity.class);
+                Intent intent = new Intent("com.lixue.chapter_1.SecondActivity");
+//                Intent intent = new Intent();
+//                intent.setClass(MainActivity.this, SecondActivity.class);
                 intent.putExtra("time", System.currentTimeMillis());
-//                intent.addCategory("com.lixue.chapter_1.category_second");
-//                intent.setDataAndType(Uri.parse("file://abc"), "text/plain");
+                intent.addCategory("com.lixue.second");
+                intent.setDataAndType(Uri.parse("file://abc"), "text/plain");
                 startActivity(intent);
             }
         });
