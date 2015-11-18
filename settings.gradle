@@ -1,2 +1,2 @@
-include ':chapter2', ':chapter3', ':chapter'
+include ':chapter2', ':chapter3', ':chapter', ':chapter4'
 project(':chapter').projectDir = new File('chapter1')
