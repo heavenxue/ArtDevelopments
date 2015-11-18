@@ -27,14 +27,14 @@ public class DemoActivity_1 extends ActionBarActivity {
         setContentView(R.layout.activity_demo_activity_1);
         initView();
     }
+
     private void initView() {
         LayoutInflater inflater = getLayoutInflater();
         mListContainer = (HorizontalScrollViewEx) findViewById(R.id.container);
         final int screenWidth = MyUtils.getScreenMetrics(this).widthPixels;
         final int screenHeight = MyUtils.getScreenMetrics(this).heightPixels;
         for (int i = 0; i < 3; i++) {
-            ViewGroup layout = (ViewGroup) inflater.inflate(
-                    R.layout.content_layout, mListContainer, false);
+            ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.content_layout, mListContainer, false);
             layout.getLayoutParams().width = screenWidth;
             TextView textView = (TextView) layout.findViewById(R.id.title);
             textView.setText("page " + (i + 1));
@@ -43,6 +43,8 @@ public class DemoActivity_1 extends ActionBarActivity {
             mListContainer.addView(layout);
         }
     }
+
+    //创建list数据
     private void createList(ViewGroup layout) {
         ListView listView = (ListView) layout.findViewById(R.id.list);
         ArrayList<String> datas = new ArrayList<String>();
@@ -50,16 +52,12 @@ public class DemoActivity_1 extends ActionBarActivity {
             datas.add("name " + i);
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.content_list_item, R.id.name, datas);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.content_list_item, R.id.name, datas);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Toast.makeText(DemoActivity_1.this, "click item",
-                        Toast.LENGTH_SHORT).show();
-
+            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+                Toast.makeText(DemoActivity_1.this, "click item", Toast.LENGTH_SHORT).show();
             }
         });
     }

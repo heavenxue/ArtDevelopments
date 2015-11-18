@@ -2,9 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/line1"
-    >
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/title"
@@ -14,7 +12,7 @@
         android:layout_marginBottom="5dp"
         android:text="TextView" />
 
-    <ListView
+    <com.lixue.aibei.chapter3.ui.ListViewEx
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
