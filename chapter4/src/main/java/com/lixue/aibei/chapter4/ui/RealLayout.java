@@ -12,22 +12,37 @@ import android.widget.LinearLayout;
 
 import com.lixue.aibei.chapter4.R;
 
+import java.util.ArrayList;
+
 /**
  * 一个特殊的LinearLayout,任何放入内部的clickable元素都具有波纹效果，当它被点击的时候，
  * 为了性能，尽量不要在内部放入复杂的元素
  * Created by Administrator on 2015/11/18.
  */
-public class RealLayout extends LinearLayout {
-    private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private View mTouchTarget;
+public class RealLayout extends LinearLayout implements Runnable {
 
-    //分别表示上一次滑动时的坐标
-    private int mLastX = 0;
-    private int mLastY = 0;
-    private int mLastInterceptX = 0;
-    private int mLastInterceptY = 0;
+    private static final String TAG = "DxRevealLayout";
+    private static final boolean DEBUG = true;
+
+    private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    private int mTargetWidth;
+    private int mTargetHeight;
+    private int mMinBetweenWidthAndHeight;
+    private int mMaxBetweenWidthAndHeight;
+    private int mMaxRevealRadius;
+    private int mRevealRadiusGap;
+    private int mRevealRadius = 0;
+    private float mCenterX;
+    private float mCenterY;
     private int[] mLocationInScreen = new int[2];
 
+    private boolean mShouldDoAnimation = false;
+    private boolean mIsPressed = false;
+    private int INVALIDATE_DURATION = 40;
+
+    private View mTouchTarget;
+    private DispatchUpTouchEventRunnable mDispatchUpTouchEventRunnable = new DispatchUpTouchEventRunnable();
 
     public RealLayout(Context context) {
         super(context);
@@ -39,49 +54,152 @@ public class RealLayout extends LinearLayout {
         init();
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public RealLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public RealLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init();
+    private void init() {
+        setWillNotDraw(false);
+        mPaint.setColor(getResources().getColor(R.color.reveal_color));
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        //获取在整个屏幕内的绝对坐标，注意这个值是要从屏幕顶端算起，也就是包括了通知栏的高度。[0]代表x坐标,location [1] 代表y坐标。
         this.getLocationOnScreen(mLocationInScreen);
     }
 
-    /**
-     * 初始化
-     */
-    private void init(){
-        //这里要重写ondraw，所以不需要此标志
-        setWillNotDraw(false);
-        mPaint.setColor(getResources().getColor(R.color.reveal_color));
+    private void initParametersForChild(MotionEvent event, View view) {
+        mCenterX = event.getX() ;
+        mCenterY = event.getY() ;
+        mTargetWidth = view.getMeasuredWidth();
+        mTargetHeight = view.getMeasuredHeight();
+        mMinBetweenWidthAndHeight = Math.min(mTargetWidth, mTargetHeight);
+        mMaxBetweenWidthAndHeight = Math.max(mTargetWidth, mTargetHeight);
+        mRevealRadius = 0;
+        mShouldDoAnimation = true;
+        mIsPressed = true;
+        mRevealRadiusGap = mMinBetweenWidthAndHeight / 8;
+
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        int left = location[0] - mLocationInScreen[0];
+        int transformedCenterX = (int)mCenterX - left;
+        mMaxRevealRadius = Math.max(transformedCenterX, mTargetWidth - transformedCenterX);
     }
 
-
-    //当绘制子view（children）时，用此方法
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
+        if (!mShouldDoAnimation || mTargetWidth <= 0 || mTouchTarget == null) {
+            return;
+        }
+
+        if (mRevealRadius > mMinBetweenWidthAndHeight / 2) {
+            mRevealRadius += mRevealRadiusGap * 4;
+        } else {
+            mRevealRadius += mRevealRadiusGap;
+        }
+        this.getLocationOnScreen(mLocationInScreen);
+        int[] location = new int[2];
+        mTouchTarget.getLocationOnScreen(location);
+        int left = location[0] - mLocationInScreen[0];
+        int top = location[1] - mLocationInScreen[1];
+        int right = left + mTouchTarget.getMeasuredWidth();
+        int bottom = top + mTouchTarget.getMeasuredHeight();
+
+        canvas.save();
+        canvas.clipRect(left, top, right, bottom);
+        canvas.drawCircle(mCenterX, mCenterY, mRevealRadius, mPaint);
+        canvas.restore();
+
+        if (mRevealRadius <= mMaxRevealRadius) {
+            postInvalidateDelayed(INVALIDATE_DURATION, left, top, right, bottom);
+        } else if (!mIsPressed) {
+            mShouldDoAnimation = false;
+            postInvalidateDelayed(INVALIDATE_DURATION, left, top, right, bottom);
+        }
     }
 
-    //拦截事件（外部拦截）
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return super.onInterceptTouchEvent(ev);
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        int x = (int) event.getRawX();
+        int y = (int) event.getRawY();
+        int action = event.getAction();
+        if (action == MotionEvent.ACTION_DOWN) {
+            View touchTarget = getTouchTarget(this, x, y);
+            if (touchTarget != null && touchTarget.isClickable() && touchTarget.isEnabled()) {
+                mTouchTarget = touchTarget;
+                initParametersForChild(event, touchTarget);
+                postInvalidateDelayed(INVALIDATE_DURATION);
+            }
+        } else if (action == MotionEvent.ACTION_UP) {
+            mIsPressed = false;
+            postInvalidateDelayed(INVALIDATE_DURATION);
+            mDispatchUpTouchEventRunnable.event = event;
+            postDelayed(mDispatchUpTouchEventRunnable, 200);
+            return true;
+        } else if (action == MotionEvent.ACTION_CANCEL) {
+            mIsPressed = false;
+            postInvalidateDelayed(INVALIDATE_DURATION);
+        }
+
+        return super.dispatchTouchEvent(event);
     }
 
-    //触摸事件
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return super.onTouchEvent(event);
+    private View getTouchTarget(View view, int x, int y) {
+        View target = null;
+        ArrayList<View> TouchableViews = view.getTouchables();
+        for (View child : TouchableViews) {
+            if (isTouchPointInView(child, x, y)) {
+                target = child;
+                break;
+            }
+        }
+
+        return target;
     }
+
+    private boolean isTouchPointInView(View view, int x, int y) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        int left = location[0];
+        int top = location[1];
+        int right = left + view.getMeasuredWidth();
+        int bottom = top + view.getMeasuredHeight();
+        if (view.isClickable() && y >= top && y <= bottom
+                && x >= left && x <= right) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean performClick() {
+        postDelayed(this, 400);
+        return true;
+    }
+
+    @Override
+    public void run() {
+        super.performClick();
+    }
+
+    private class DispatchUpTouchEventRunnable implements Runnable {
+        public MotionEvent event;
+
+        @Override
+        public void run() {
+            if (mTouchTarget == null || !mTouchTarget.isEnabled()) {
+                return;
+            }
+
+            if (isTouchPointInView(mTouchTarget, (int)event.getRawX(), (int)event.getRawY())) {
+                mTouchTarget.performClick();
+            }
+        }
+    };
+
 }

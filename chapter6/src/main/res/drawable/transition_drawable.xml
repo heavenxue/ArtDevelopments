@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transition xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:drawable="@drawable/shape_drawable_gradient_linear"></item>
+    <item android:drawable="@drawable/shape_drawable_gradient_radius"></item>
+</transition>
