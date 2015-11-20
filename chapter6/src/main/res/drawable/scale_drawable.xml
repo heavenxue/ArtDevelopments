@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <scale xmlns:android="http://schemas.android.com/apk/res/android"
-    android:scaleHeight="70%"
-       android:scaleWidth="70%"
-       android:drawable="@mipmap/image1"
+    android:scaleHeight="50%"
+       android:scaleWidth="50%"
+       android:drawable="@mipmap/image2"
+       android:scaleGravity="center"
     >
 </scale>
