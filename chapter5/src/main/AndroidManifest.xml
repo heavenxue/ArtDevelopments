@@ -25,7 +25,7 @@
             android:label="@string/title_activity_demo2" >
         </activity>
 
-        <receiver android:name=".MyAppWidgetProvider" >
+        <receiver android:name="com.lixue.aibei.chapter5.MyAppWidgetProvider" >
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/appwidget_provider_info" />

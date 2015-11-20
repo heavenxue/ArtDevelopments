@@ -35,7 +35,7 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Bitmap srcBitmap = BitmapFactory.decodeResource(context.getResources(),R.mipmap.image2);
+                    Bitmap srcBitmap = BitmapFactory.decodeResource(context.getResources(),R.mipmap.m);
                     AppWidgetManager manager = AppWidgetManager.getInstance(context);
                     for (int i = 0;i < 37;i++){
                         float degree = (i * 10 ) % 360;
