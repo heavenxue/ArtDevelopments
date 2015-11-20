@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">chapter5</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_demo1">Demo1Activity</string>
+    <string name="title_activity_demo2">Demo2Activity</string>
+    <string name="title_activity_test">TestActivity</string>
+</resources>
