@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context="com.lixue.aibei.chapter7.DemoActivity_2">
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutAnimation="@anim/anim_layout"
+        android:background="#00f4aa"
+        android:cacheColorHint="#000000"
+        android:divider="#dddbdb"
+        android:dividerHeight="1dp"
+        android:listSelector="@android:color/transparent"
+        />
+
+</LinearLayout>
