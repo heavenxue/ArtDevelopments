@@ -2,7 +2,9 @@ package com.lixue.aibei.chapter2;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.IBinder;
+import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.util.Log;
 
@@ -23,7 +25,7 @@ public class BookManagerService extends Service {
 
     private AtomicBoolean mIsServiceDestoryed = new AtomicBoolean(false);//服務是否銷毀
 
-    private CopyOnWriteArrayList<IOnNewBookArrivedListener> mListener = new CopyOnWriteArrayList<>();
+    private RemoteCallbackList<IOnNewBookArrivedListener> mListener = new RemoteCallbackList<>();
 
     public BookManagerService() {
     }
@@ -46,6 +48,12 @@ public class BookManagerService extends Service {
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
 //        throw new UnsupportedOperationException("Not yet implemented");
+        /**添加权限验证**/
+        int check = checkCallingOrSelfPermission("com.lixue.aibei.chapter2.permission.ACCESS_BOOK_SERVICE");
+        if (check == PackageManager.PERMISSION_DENIED){
+            return null;
+        }
+
         return mBinder;
     }
 
@@ -69,23 +77,25 @@ public class BookManagerService extends Service {
 
         @Override
         public void registListener(IOnNewBookArrivedListener listener) throws RemoteException {
-            if (listener != null){
-                mListener.add(listener);
-            }else{
-                Log.i(TAG,"already exist listener");
-            }
-            Log.d(TAG,"registListene,size:"+ mListener.size());
+            mListener.register(listener);
+
+            final int N = mListener.beginBroadcast();
+            mListener.finishBroadcast();
+            Log.d(TAG, "registerListener, current size:" + N);
         }
 
         @Override
         public void unregistListener(IOnNewBookArrivedListener listener) throws RemoteException {
-            if (mListener.contains(listener)){
-                mListener.remove(listener);
-                Log.d(TAG,"unregistListener listener succeed.");
-            }else{
-                Log.d(TAG,"not found,can not unregistListener");
+            boolean success = mListener.unregister(listener);
+
+            if (success) {
+                Log.d(TAG, "unregister success.");
+            } else {
+                Log.d(TAG, "not found, can not unregister.");
             }
-            Log.d(TAG,"unregistListener,size:"+ mListener.size());
+            final int N = mListener.beginBroadcast();
+            mListener.finishBroadcast();
+            Log.d(TAG, "unregisterListener, current size:" + N);
         }
     };
 
@@ -112,8 +122,8 @@ public class BookManagerService extends Service {
     }
     private void onNewBookArrived(Book book) throws RemoteException {
         mBooklist.add(book);
-        for (int i=0;i<mListener.size();i++){
-            IOnNewBookArrivedListener listener = mListener.get(i);
+        for (int i=0;i<mListener.beginBroadcast();i++){
+            IOnNewBookArrivedListener listener = mListener.getBroadcastItem(i);
             Log.d(TAG,"onNewBookArrived,notify listener:"+ listener);
             listener.onNewBookArrivedlistener(book);
         }

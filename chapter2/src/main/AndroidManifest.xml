@@ -4,6 +4,13 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--socket通信权限-->
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <!-- 自定义的权限 -->
+    <permission
+        android:name="com.lixue.aibei.chapter2.permission.ACCESS_BOOK_SERVICE"
+        android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
@@ -22,8 +29,7 @@
         <activity
             android:name=".SecondActivity"
             android:label="@string/title_activity_second"
-            android:process=":remote"
-            >
+             >
         </activity>
         <activity
             android:name=".ThirdActivity"
@@ -38,14 +44,33 @@
         <service
             android:name=".MessengerService"
             android:enabled="true"
-            android:exported="true"
-            >
+            android:exported="true" >
         </service>
 
         <activity
             android:name=".MessengerActivity"
             android:label="@string/title_activity_messenger" >
         </activity>
+        <!-- 注册provider -->
+        <provider
+            android:name=".BookProvider"
+            android:authorities="com.lixue.aibei.chapter2.book.provider"
+            android:permission="com.lixue.PROVIDER"
+            android:process=":provider" />
+
+        <activity
+            android:name=".ProviderActivity"
+            android:label="@string/title_activity_provider" >
+        </activity>
+
+        <!--注册soket服务与activity-->
+        <activity android:name=".socket.TCPClientActivity"
+            android:label="TCPClientActivity"
+            ></activity>
+        <service android:name=".socket.TCPServerService"
+                 android:enabled="true"
+                 android:exported="true"
+            ></service>
     </application>
 
 </manifest>

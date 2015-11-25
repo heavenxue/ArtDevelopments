@@ -9,6 +9,9 @@ import android.os.Parcelable;
 public class Book implements Parcelable {
     public  int bookId;
     public String bookName;
+    public Book(){
+
+    }
 
     public Book(int bookId,String bookName){
         this.bookId = bookId;
@@ -43,5 +46,10 @@ public class Book implements Parcelable {
     private Book(Parcel parcel){
         bookName = parcel.readString();
         bookId = parcel.readInt();
+    }
+
+    @Override
+    public String toString() {
+        return "bookID:" + bookId +",bookName:" +bookName;
     }
 }

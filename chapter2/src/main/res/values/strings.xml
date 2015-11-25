@@ -6,4 +6,5 @@
     <string name="title_activity_second">SecondActivity</string>
     <string name="title_activity_third">ThirdActivity</string>
     <string name="title_activity_messenger">MessengerActivity</string>
+    <string name="title_activity_provider">ProviderActivity</string>
 </resources>

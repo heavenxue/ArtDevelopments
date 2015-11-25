@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.lixue.aibei.chapter2.socket.TCPClientActivity;
+
 import java.util.List;
 
 
@@ -58,6 +60,20 @@ public class ThirdActivity extends Activity {
                 Intent intent = new Intent();
                 intent.setClass(ThirdActivity.this, MessengerActivity.class);
                 startActivity(intent);
+            }
+        });
+        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent itents = new Intent(ThirdActivity.this, ProviderActivity.class);
+                startActivity(itents);
+            }
+        });
+        findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent itents = new Intent(ThirdActivity.this, TCPClientActivity.class);
+                startActivity(itents);
             }
         });
         //綁定bookManager的客戶端，在這裡實例
