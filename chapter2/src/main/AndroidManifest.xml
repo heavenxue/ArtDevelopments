@@ -4,9 +4,9 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--socket通信权限-->
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <!-- socket通信权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- 自定义的权限 -->
     <permission
         android:name="com.lixue.aibei.chapter2.permission.ACCESS_BOOK_SERVICE"
@@ -28,8 +28,7 @@
         </activity>
         <activity
             android:name=".SecondActivity"
-            android:label="@string/title_activity_second"
-             >
+            android:label="@string/title_activity_second" >
         </activity>
         <activity
             android:name=".ThirdActivity"
@@ -63,14 +62,25 @@
             android:label="@string/title_activity_provider" >
         </activity>
 
-        <!--注册soket服务与activity-->
-        <activity android:name=".socket.TCPClientActivity"
-            android:label="TCPClientActivity"
-            ></activity>
-        <service android:name=".socket.TCPServerService"
-                 android:enabled="true"
-                 android:exported="true"
-            ></service>
+        <!-- 注册soket服务与activity -->
+        <activity
+            android:name=".socket.TCPClientActivity"
+            android:label="TCPClientActivity" />
+
+        <service
+            android:name=".socket.TCPServerService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".binderpool.BinderPoolService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
+        <activity
+            android:name=".binderpool.BinderPoolActivity"
+            android:label="@string/title_activity_binder_pool" >
+        </activity>
     </application>
 
 </manifest>

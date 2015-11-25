@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.lixue.aibei.chapter2.binderpool.BinderPoolActivity;
 import com.lixue.aibei.chapter2.socket.TCPClientActivity;
 
 import java.util.List;
@@ -73,6 +74,13 @@ public class ThirdActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent itents = new Intent(ThirdActivity.this, TCPClientActivity.class);
+                startActivity(itents);
+            }
+        });
+        findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent itents = new Intent(ThirdActivity.this, BinderPoolActivity.class);
                 startActivity(itents);
             }
         });
