@@ -28,6 +28,7 @@ public class MainActivity extends Activity {
         Intent intent = new Intent();
         intent.setClass(MainActivity.this, SecondActivity.class);
         User muser = new User(0, "jake", true);
+        Log.i(TAG,"sUserId:"+ UserManager.sUserId);
 //        user.book = new Book();
 //        intent.putExtra("extra_user", (Parcelable) muser);
         intent.putExtra("extra_user", (Serializable) muser);

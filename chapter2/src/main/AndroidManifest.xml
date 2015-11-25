@@ -21,7 +21,9 @@
         </activity>
         <activity
             android:name=".SecondActivity"
-            android:label="@string/title_activity_second" >
+            android:label="@string/title_activity_second"
+            android:process=":remote"
+            >
         </activity>
         <activity
             android:name=".ThirdActivity"
@@ -29,10 +31,21 @@
         </activity>
 
         <service
-            android:name=".MyService"
+            android:name=".BookManagerService"
             android:enabled="true"
             android:exported="true" >
         </service>
+        <service
+            android:name=".MessengerService"
+            android:enabled="true"
+            android:exported="true"
+            >
+        </service>
+
+        <activity
+            android:name=".MessengerActivity"
+            android:label="@string/title_activity_messenger" >
+        </activity>
     </application>
 
 </manifest>

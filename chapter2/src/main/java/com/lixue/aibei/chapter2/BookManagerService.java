@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.util.Log;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -12,7 +13,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * BookManager 應用的service  服務端的處理過程
  */
-public class MyService extends Service {
+public class BookManagerService extends Service {
+    private static final String TAG = "BookManagerService";
 //    private List<Book> mBooklist = new ArrayList<Book>();
     /**
      * CopyOnWriteArrayList支持并发读写
@@ -21,7 +23,9 @@ public class MyService extends Service {
 
     private AtomicBoolean mIsServiceDestoryed = new AtomicBoolean(false);//服務是否銷毀
 
-    public MyService() {
+    private CopyOnWriteArrayList<IOnNewBookArrivedListener> mListener = new CopyOnWriteArrayList<>();
+
+    public BookManagerService() {
     }
 
     @Override
@@ -62,6 +66,27 @@ public class MyService extends Service {
                 }
             }
         }
+
+        @Override
+        public void registListener(IOnNewBookArrivedListener listener) throws RemoteException {
+            if (listener != null){
+                mListener.add(listener);
+            }else{
+                Log.i(TAG,"already exist listener");
+            }
+            Log.d(TAG,"registListene,size:"+ mListener.size());
+        }
+
+        @Override
+        public void unregistListener(IOnNewBookArrivedListener listener) throws RemoteException {
+            if (mListener.contains(listener)){
+                mListener.remove(listener);
+                Log.d(TAG,"unregistListener listener succeed.");
+            }else{
+                Log.d(TAG,"not found,can not unregistListener");
+            }
+            Log.d(TAG,"unregistListener,size:"+ mListener.size());
+        }
     };
 
     private class ServiceWorker implements Runnable{
@@ -77,12 +102,20 @@ public class MyService extends Service {
                 }
                 int bookId = mBooklist.size() + 1;
                 Book newBook = new Book(bookId, "new book#" + bookId);
-//                try {
-//                    onNewBookArrived(newBook);
-//                } catch (RemoteException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    onNewBookArrived(newBook);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
             }
+        }
+    }
+    private void onNewBookArrived(Book book) throws RemoteException {
+        mBooklist.add(book);
+        for (int i=0;i<mListener.size();i++){
+            IOnNewBookArrivedListener listener = mListener.get(i);
+            Log.d(TAG,"onNewBookArrived,notify listener:"+ listener);
+            listener.onNewBookArrivedlistener(book);
         }
     }
 }
