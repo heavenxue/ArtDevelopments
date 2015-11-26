@@ -1,5 +1,6 @@
 package com.lixue.aibei.chapter8;
 
+import android.app.Dialog;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -8,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -34,6 +36,7 @@ public class MainActivity extends ActionBarActivity {
         });
     }
     private void initView(){
+        //利用WindowManager创建Button
         mButton = new Button(this);
         mButton.setText("button");
         mLayoutParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,0,0, PixelFormat.TRANSLUCENT);
@@ -42,6 +45,15 @@ public class MainActivity extends ActionBarActivity {
         mLayoutParams.x = 100;
         mLayoutParams.y = 300;
         getWindowManager().addView(mButton,mLayoutParams);
+        //创建Toast,利用系统类型的Window创建Dialog
+        Dialog dialog = new Dialog(this.getApplicationContext());
+//        Dialog dialog = new Dialog(MainActivity.this);
+        TextView textView = new TextView(this);
+        textView.setText("This is toast!");
+        dialog.setContentView(textView);
+        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ERROR);
+        dialog.show();
+
 
     }
 
