@@ -14,9 +14,19 @@ public class BinderPoolService extends Service {
     }
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
-        Log.d(TAG,"onBind");
+        Log.d(TAG, "onBind");
         return mBinderPool;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

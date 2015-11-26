@@ -24,7 +24,8 @@ public class BookManagerService extends Service {
     private CopyOnWriteArrayList<Book> mBooklist = new CopyOnWriteArrayList<Book>();
 
     private AtomicBoolean mIsServiceDestoryed = new AtomicBoolean(false);//服務是否銷毀
-
+    /**RemoteCallbackList是系统专门提供的用于删除跨进程listener的接口**/
+    /**RemoteCallbackList还有一个很有用的功能，那就是客户端进程终止后，它能够自动移除客户端注册的listener**/
     private RemoteCallbackList<IOnNewBookArrivedListener> mListener = new RemoteCallbackList<>();
 
     public BookManagerService() {

@@ -31,11 +31,9 @@ public class BinderPoolActivity extends ActionBarActivity {
 
     private void doWork() {
         BinderPool binderPool = BinderPool.getInsance(BinderPoolActivity.this);
-        IBinder securityBinder = binderPool
-                .queryBinder(BinderPool.BINDER_SECURITY_CENTER);
-        ;
-        mSecurityCenter = (ISecurityCenter) SecurityCenterImpl
-                .asInterface(securityBinder);
+        IBinder securityBinder = binderPool.queryBinder(BinderPool.BINDER_SECURITY_CENTER);
+
+        mSecurityCenter = (ISecurityCenter) SecurityCenterImpl.asInterface(securityBinder);
         Log.d(TAG, "visit ISecurityCenter");
         String msg = "helloworld-安卓";
         System.out.println("content:" + msg);
@@ -48,9 +46,8 @@ public class BinderPoolActivity extends ActionBarActivity {
         }
 
         Log.d(TAG, "visit ICompute");
-        IBinder computeBinder = binderPool
-                .queryBinder(BinderPool.BINDER_COMPUTE);
-        ;
+        IBinder computeBinder = binderPool.queryBinder(BinderPool.BINDER_COMPUTE);
+
         mCompute = ComputeImpl.asInterface(computeBinder);
         try {
             System.out.println("3+5=" + mCompute.add(3, 5));
