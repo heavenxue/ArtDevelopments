@@ -99,7 +99,26 @@ public class MainActivity extends ActionBarActivity implements AbsListView.OnScr
                 "http://img3.3lian.com/2013/c2/32/d/101.jpg",
                 "http://pic25.nipic.com/20121210/7447430_172514301000_2.jpg",
                 "http://img02.tooopen.com/images/20140320/sy_57121781945.jpg",
-                "http://www.renyugang.cn/emlog/content/plugins/kl_album/upload/201004/852706aad6df6cd839f1211c358f2812201004120651068641.jpg"
+                "http://www.renyugang.cn/emlog/content/plugins/kl_album/upload/201004/852706aad6df6cd839f1211c358f2812201004120651068641.jpg",
+                "http://stimgcn1.s-msn.com/msnportal/fashion/2012/12/24/51478f07-382d-4da9-99b5-815dd2848aa8.jpg",
+                "http://pic8.nipic.com/20100710/3525627_103203005965_2.jpg",
+                "http://image.fvideo.cn/uploadfile/2012/03/15/20120315110710016.jpg",
+                "http://img1.gtimg.com/14/1409/140905/14090586_980x1200_281.jpg",
+                "http://image.tianjimedia.com/uploadImages/2014/318/06/W6BRV0W1018M.JPEG",
+                "http://www.sxdaily.com.cn/NMediaFile/2014/0717/SXRB201407171939000535001195891.jpg",
+                "http://n.sinaimg.cn/ent/20151112/4quh-fxksqiv8305900.jpg",
+                "http://www.027art.com/art/UploadFiles_8975/201104/2011042212173080.jpg",
+                "http://image2.cnpp.cn/upload/images/20141117/10070823002_800x1091.jpg_800_600.jpg",
+                "http://img0.imgtn.bdimg.com/it/u=970035335,2771436145&fm=21&gp=0.jpg",
+                "http://images.qianlong.com/mmsource/imghylanda/201110/18/64/12547005117608950356.jpg",
+                "http://img.55bbs.com/12_500x2000/474/liF7d1ExO6IsE.jpg",
+                "http://www.meili.cn/UploadFiles/jpg/2013/3/201303191550552574.jpg",
+                "http://img.dfhon.cn/imagefiles/2011/20110307/081023%20%281%29.jpg",
+                "http://img4.imgtn.bdimg.com/it/u=800763499,2369353371&fm=21&gp=0.jpg",
+                "http://fashion.lnd.com.cn/attachement/jpg/site1/20120328/50e549b2750e10dd04fe35.jpg",
+                "http://www.bz55.com/uploads/allimg/150708/139-150FQ40J5.jpg",
+                "http://imgphoto.gmw.cn/attachement/jpg/site2/20140505/0023ae68756b14d180c223.jpg",
+                "http://news.cz001.com.cn/attachement/jpg/site2/20120614/d067e519eae31143846014.jpg"
         };
         for (String url : imageUrls) {
             mUrList.add(url);
