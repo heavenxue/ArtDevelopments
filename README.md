@@ -6,7 +6,7 @@
 
   目录
 ----
-  * 第1章 Activity的生命周期和启动模式 / 1
+### * 第1章 Activity的生命周期和启动模式 / 1
       1.1 Activity的生命周期全面分析 / 1
       1.1.1 典型情况下的生命周期分析 / 2
       1.1.2 异常情况下的生命周期分析 / 8
@@ -14,7 +14,7 @@
       1.2.1 Activity的LaunchMode / 16
       1.2.2 Activity的Flags / 27
       1.3 IntentFilter的匹配规则 / 28
-  * 第2章 IPC机制 / 35
+### * 第2章 IPC机制 / 35
       2.1 Android IPC简介 / 35
       2.2 Android中的多进程模式 / 36
       2.2.1 开启多进程模式 / 36
@@ -32,7 +32,7 @@
       2.4.6 使用Socket / 103
       2.5 Binder连接池 / 112
       2.6 选用合适的IPC方式 / 121
-      第3章 View的事件体系 / 122
+### * 第3章 View的事件体系 / 122
       3.1 View基础知识 / 122
       3.1.1 什么是View / 123
       3.1.2 View的位置参数 / 123
@@ -54,7 +54,7 @@
       3.5.1 常见的滑动冲突场景 / 155
       3.5.2 滑动冲突的处理规则 / 156
       3.5.3 滑动冲突的解决方式 / 157
-  *第4章 View的工作原理 / 174
+### * 第4章 View的工作原理 / 174
       4.1 初识ViewRoot和DecorView / 174
       4.2 理解MeasureSpec / 177
       4.2.1 MeasureSpec / 177
@@ -68,14 +68,14 @@
       4.4.2 自定义View须知 / 201
       4.4.3 自定义View示例 / 202
       4.4.4 自定义View的思想 / 217
-      第5章 理解RemoteViews / 218
+### * 第5章 理解RemoteViews / 218
       5.1 RemoteViews的应用 / 218
       5.1.1 RemoteViews在通知栏上的应用 / 219
       5.1.2 RemoteViews在桌面小部件上的应用 / 221
       5.1.3 PendingIntent概述 / 228
       5.2 RemoteViews的内部机制 / 230
       5.3 RemoteViews的意义 / 239
-  * 第6章 Android的Drawable / 243
+### * 第6章 Android的Drawable / 243
       6.1 Drawable简介 / 243
       6.2 Drawable的分类 / 244
       6.2.1 BitmapDrawable / 244
@@ -88,7 +88,7 @@
       6.2.8 ScaleDrawable / 258
       6.2.9 ClipDrawable / 260
       6.3 自定义Drawable / 262
-  * 第7章 Android动画深入分析 / 265
+### * 第7章 Android动画深入分析 / 265
       7.1 View动画 / 265
       7.1.1 View动画的种类 / 265
       7.1.2 自定义View动画 / 270
@@ -103,7 +103,7 @@
       7.3.4 对任意属性做动画 / 282
       7.3.5 属性动画的工作原理 / 288
       7.4 使用动画的注意事项 / 292
-  * 第8章 理解Window和WindowManager / 294
+### * 第8章 理解Window和WindowManager / 294
       8.1 Window和WindowManager / 294
       8.2 Window的内部机制 / 297
       8.2.1 Window的添加过程 / 298
@@ -113,7 +113,7 @@
       8.3.1 Activity的Window创建过程 / 304
       8.3.2 Dialog的Window创建过程 / 308
       8.3.3 Toast的Window创建过程 / 311
-  * 第9章 四大组件的工作过程 / 316
+### * 第9章 四大组件的工作过程 / 316
       9.1 四大组件的运行状态 / 316
       9.2 Activity的工作过程 / 318
       9.3 Service的工作过程 / 336
@@ -123,7 +123,7 @@
       9.4.1 广播的注册过程 / 353
       9.4.2 广播的发送和接收过程 / 356
       9.5 ContentProvider的工作过程 / 362
-  * 第10章 Android的消息机制 / 372
+### * 第10章 Android的消息机制 / 372
       10.1 Android的消息机制概述 / 373
       10.2 Android的消息机制分析 / 375
       10.2.1 ThreadLocal的工作原理 / 375
@@ -131,7 +131,7 @@
       10.2.3 Looper的工作原理 / 383
       10.2.4 Handler的工作原理 / 385
       10.3 主线程的消息循环 / 389
-  * 第11章 Android的线程和线程池 / 391
+### * 第11章 Android的线程和线程池 / 391
       11.1 主线程和子线程 / 392
       11.2 Android中的线程形态 / 392
       11.2.1 AsyncTask / 392
@@ -141,7 +141,7 @@
       11.3 Android中的线程池 / 406
       11.3.1 ThreadPoolExecutor / 407
       11.3.2 线程池的分类 / 410
-  * 第12章 Bitmap的加载和Cache / 413
+### * 第12章 Bitmap的加载和Cache / 413
       12.1 Bitmap的高效加载 / 414
       12.2 Android中的缓存策略 / 417
       12.2.1 LruCache / 418
@@ -150,14 +150,14 @@
       12.3 ImageLoader的使用 / 441
       12.3.1 照片墙效果 / 441
       12.3.2 优化列表的卡顿现象 / 446
-  * 第13章 综合技术 / 448
+### * 第13章 综合技术 / 448
       13.1 使用CrashHandler来获取应用的crash信息 / 449
       13.2 使用multidex来解决方法数越界 / 455
       13.3 Android的动态加载技术 / 463
       13.4 反编译初步 / 469
       13.4.1 使用dex2jar和jd-gui反编译apk / 470
       13.4.2 使用apktool对apk进行二次打包 / 470
-  * 第14章 JNI和NDK编程 / 473
+### * 第14章 JNI和NDK编程 / 473
       14.1 JNI的开发流程 / 474
       14.2 NDK的开发流程 / 478
       14.3 JNI的数据类型和类型签名 / 484
